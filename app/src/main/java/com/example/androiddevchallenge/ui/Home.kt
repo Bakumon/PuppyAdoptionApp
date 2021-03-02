@@ -53,7 +53,6 @@ import com.example.androiddevchallenge.ui.theme.locationColor
 import com.example.androiddevchallenge.ui.theme.mask
 import com.example.androiddevchallenge.ui.theme.tag
 
-// Start building your app here!
 @Composable
 fun Home(dogs: List<Dog>, onClick: (Dog) -> Unit = {}) {
     Scaffold(
@@ -63,62 +62,63 @@ fun Home(dogs: List<Dog>, onClick: (Dog) -> Unit = {}) {
                 title = { Text("🐶 Puppy Adoption") },
                 contentColor = MaterialTheme.colors.onPrimary
             )
-        }
-    ) {
-        LazyColumn(
-            Modifier.background(MaterialTheme.colors.background),
-            contentPadding = PaddingValues(16.dp),
-            verticalArrangement = Arrangement.spacedBy(20.dp)
-        ) {
-            items(dogs) { dog ->
-                val modifier = Modifier
-                    .clip(RoundedCornerShape(8.dp))
-                    .fillMaxWidth()
-                    .clickable {
-                        onClick(dog)
-                    }
-                Card(modifier) {
-                    Image(
-                        painterResource(dog.picture),
-                        "Picture of dog: ${dog.name}",
-                        Modifier.size(180.dp),
-                        contentScale = ContentScale.Crop
-                    )
-                    Surface(color = mask, modifier = Modifier.size(180.dp)) {
-                        Column(Modifier.padding(top = 110.dp, start = 15.dp, end = 15.dp)) {
-                            Row(verticalAlignment = Alignment.CenterVertically) {
-                                Text(
-                                    dog.name,
-                                    style = MaterialTheme.typography.h5,
-                                    color = MaterialTheme.colors.onPrimary
-                                )
-                                Text(
-                                    dog.age,
-                                    style = MaterialTheme.typography.caption,
-                                    color = MaterialTheme.colors.onPrimary,
-                                    modifier = Modifier
-                                        .background(
-                                            color = tag,
-                                            shape = RoundedCornerShape(percent = 50)
-                                        )
-                                        .size(40.dp, 20.dp),
-                                    textAlign = TextAlign.Center
-                                )
-                            }
-                            Row(verticalAlignment = Alignment.CenterVertically) {
-                                Image(
-                                    painterResource(id = R.drawable.ic_baseline_location_on_24),
-                                    "Location of dog: ${dog.name}",
-                                    Modifier.size(18.dp)
-                                )
-                                Text(dog.location, color = locationColor)
+        },
+        content = {
+            LazyColumn(
+                Modifier.background(MaterialTheme.colors.background),
+                contentPadding = PaddingValues(16.dp),
+                verticalArrangement = Arrangement.spacedBy(20.dp)
+            ) {
+                items(dogs) { dog ->
+                    val modifier = Modifier
+                        .clip(RoundedCornerShape(8.dp))
+                        .fillMaxWidth()
+                        .clickable {
+                            onClick(dog)
+                        }
+                    Card(modifier) {
+                        Image(
+                            painterResource(dog.picture),
+                            "Picture of dog: ${dog.name}",
+                            Modifier.size(180.dp),
+                            contentScale = ContentScale.Crop
+                        )
+                        Surface(color = mask, modifier = Modifier.size(180.dp)) {
+                            Column(Modifier.padding(top = 110.dp, start = 15.dp, end = 15.dp)) {
+                                Row(verticalAlignment = Alignment.CenterVertically) {
+                                    Text(
+                                        dog.name,
+                                        style = MaterialTheme.typography.h5,
+                                        color = MaterialTheme.colors.onPrimary
+                                    )
+                                    Text(
+                                        dog.age,
+                                        style = MaterialTheme.typography.caption,
+                                        color = MaterialTheme.colors.onPrimary,
+                                        modifier = Modifier
+                                            .background(
+                                                color = tag,
+                                                shape = RoundedCornerShape(percent = 50)
+                                            )
+                                            .size(40.dp, 20.dp),
+                                        textAlign = TextAlign.Center
+                                    )
+                                }
+                                Row(verticalAlignment = Alignment.CenterVertically) {
+                                    Image(
+                                        painterResource(id = R.drawable.ic_baseline_location_on_24),
+                                        "Location of dog: ${dog.name}",
+                                        Modifier.size(18.dp)
+                                    )
+                                    Text(dog.location, color = locationColor)
+                                }
                             }
                         }
                     }
                 }
             }
         }
-    }
+    )
 }
 
 @Preview("Light Theme", widthDp = 360, heightDp = 640)

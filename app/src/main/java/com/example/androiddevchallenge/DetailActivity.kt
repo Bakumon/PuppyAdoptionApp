@@ -18,14 +18,11 @@ package com.example.androiddevchallenge
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
 import com.example.androiddevchallenge.data.Dog
+import com.example.androiddevchallenge.ui.Detail
 import com.example.androiddevchallenge.ui.theme.MyTheme
 
 class DetailActivity : AppCompatActivity() {
@@ -35,7 +32,9 @@ class DetailActivity : AppCompatActivity() {
         val dog: Dog = intent.getSerializableExtra(KEY_DOG) as Dog
         setContent {
             MyTheme {
-                MyApp()
+                Detail(dog) {
+                    Toast.makeText(this, "领养了${dog.name}", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
@@ -47,35 +46,5 @@ class DetailActivity : AppCompatActivity() {
             intent.putExtra(KEY_DOG, dog)
             context.startActivity(intent)
         }
-    }
-}
-
-// Start building your app here!
-@Composable
-fun MyApp() {
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text("Puppy Adoption") }
-            )
-        }
-    ) {
-        Text(text = "my Ready... Set... GO!")
-    }
-}
-
-@Preview("Light Theme", widthDp = 360, heightDp = 640)
-@Composable
-fun LightPreviewForDetail() {
-    MyTheme {
-        MyApp()
-    }
-}
-
-@Preview("Dark Theme", widthDp = 360, heightDp = 640)
-@Composable
-fun DarkPreviewForDetail() {
-    MyTheme(darkTheme = true) {
-        MyApp()
     }
 }

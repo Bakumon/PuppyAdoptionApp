@@ -16,7 +16,6 @@
 package com.example.androiddevchallenge
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.runtime.getValue
@@ -33,8 +32,8 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MyTheme {
-                Home(dogs) {
-                    Toast.makeText(this, "dog:${it.name}", Toast.LENGTH_SHORT).show()
+                Home(dogs) { dog ->
+                    DetailActivity.open(this, dog)
                 }
             }
         }

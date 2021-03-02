@@ -19,29 +19,11 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import com.example.androiddevchallenge.data.Dog
 import com.example.androiddevchallenge.data.dogList
-import com.example.androiddevchallenge.ui.theme.*
+import com.example.androiddevchallenge.ui.Home
+import com.example.androiddevchallenge.ui.theme.MyTheme
 
 class HomeActivity : AppCompatActivity() {
 
@@ -56,90 +38,5 @@ class HomeActivity : AppCompatActivity() {
                 }
             }
         }
-    }
-}
-
-// Start building your app here!
-@Composable
-fun Home(dogs: List<Dog>, onClick: (Dog) -> Unit = {}) {
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                backgroundColor = MaterialTheme.colors.primary,
-                title = { Text("🐶 Puppy Adoption") },
-                contentColor = MaterialTheme.colors.onPrimary
-            )
-        }
-    ) {
-        LazyColumn(
-            Modifier.background(MaterialTheme.colors.background),
-            contentPadding = PaddingValues(16.dp),
-            verticalArrangement = Arrangement.spacedBy(20.dp)
-        ) {
-            items(dogs) { dog ->
-                val modifier = Modifier
-                    .clip(RoundedCornerShape(8.dp))
-                    .fillMaxWidth()
-                    .clickable {
-                        onClick(dog)
-                    }
-                Card(modifier) {
-                    Image(
-                        painterResource(dog.picture),
-                        "Picture of dog: ${dog.name}",
-                        Modifier.size(180.dp),
-                        contentScale = ContentScale.Crop
-                    )
-                    Surface(color = mask, modifier = Modifier.size(180.dp)) {
-                        Column(Modifier.padding(top = 110.dp, start = 15.dp, end = 15.dp)) {
-                            Row(verticalAlignment = Alignment.CenterVertically) {
-                                Text(
-                                    dog.name,
-                                    style = MaterialTheme.typography.h5,
-                                    color = MaterialTheme.colors.onPrimary
-                                )
-                                Text(
-                                    dog.age,
-                                    style = MaterialTheme.typography.caption,
-                                    color = MaterialTheme.colors.onPrimary,
-                                    modifier = Modifier
-                                        .background(
-                                            color = tag,
-                                            shape = RoundedCornerShape(percent = 50)
-                                        )
-                                        .size(40.dp, 20.dp), textAlign = TextAlign.Center
-                                )
-                            }
-                            Row(verticalAlignment = Alignment.CenterVertically) {
-                                Image(
-                                    painterResource(id = R.drawable.ic_baseline_location_on_24),
-                                    "Location of dog: ${dog.name}",
-                                    Modifier.size(18.dp)
-                                )
-                                Text(dog.location, color = locationColor)
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
-@Preview("Light Theme", widthDp = 360, heightDp = 640)
-@Composable
-fun LightPreviewForHome() {
-    val dogs by mutableStateOf(dogList)
-    MyTheme {
-        Home(dogs)
-    }
-}
-
-@Preview("Dark Theme", widthDp = 360, heightDp = 640)
-@Composable
-fun DarkPreviewForHome() {
-    val dogs by mutableStateOf(dogList)
-    MyTheme(darkTheme = true) {
-        Home(dogs)
     }
 }
